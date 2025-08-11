@@ -225,7 +225,7 @@ public class AuthService : IAuthService
                 Errors = result.Errors.Select(e => e.Description).ToList()
             };
         }
-
+        //microservice event
         var @event = new UserCreatedEvent
         {
             UserId = Guid.Parse(newUser.Id),
@@ -233,6 +233,7 @@ public class AuthService : IAuthService
             CreatedAt = DateTime.UtcNow
         };
         await _publishEndpoint.Publish(@event);
+
 
         return new SignUpResponse
         {
